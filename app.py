@@ -3,7 +3,6 @@ from utils import pdf_processor, embeddings, chatbot
 from dotenv import load_dotenv
 from streamlit_chat import message
 
-
 load_dotenv()
 
 def main():
@@ -19,14 +18,15 @@ def main():
 
     user_question = st.text_input("Ask a question about your files:")
     
-    response = st.session_state.conversation(user_question)['chat_history']
+    if user_question:
+        response = st.session_state.conversation(user_question)['chat_history']
         # st.info(response)
-
-    for i, text in enumerate(response):
-        if i % 2 == 0:
-            message(text.content, is_user=True, key=f"user_{i}")
-        else:
-            message(text.content, is_user=False, key=f"bot_{i}")
+        for i, text in enumerate(response):
+            if i % 2 == 0:
+                message(text.content, is_user=True, key=f"user_{i}")
+            else:
+                message(text.content, is_user=False, key=f"bot_{i}")
+    
 
 
     with st.sidebar:
@@ -52,14 +52,9 @@ def main():
                 st.success("Conversation chain created successfully!")
 
                 print(text_from_pdfs)
-                # Here you can add the code to process the uploaded files
-                # For example, you can use PyMuPDF or PyPDF2 to extract text from the PDFs
-                # and then use Langchain to create a vector store and a retriever.
             else:
                 st.error("Please upload at least one PDF file before processing.", icon="⚠️")
 
 if __name__ == "__main__":
 
     main()
-    # Run the app with the command: streamlit run app.py
-    # Make sure to install Streamlit first using pip install streamlit

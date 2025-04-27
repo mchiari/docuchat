@@ -8,13 +8,12 @@ def create_vector_store(text_chunks):
     """
 
     api_key = os.getenv("OPENAI_API_KEY")
+    
     if api_key is None:
         raise ValueError("OPENAI_API_KEY environment variable not set.")
 
-    # Initialize OpenAI embeddings
     embeddings = OpenAIEmbeddings(api_key=api_key)
     
-    # Create a FAISS vector store from the text chunks
     vector_store = FAISS.from_texts(text_chunks, embeddings)
     
     return vector_store

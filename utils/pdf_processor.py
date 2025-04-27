@@ -24,4 +24,5 @@ def create_text_chunks(text):
     )
 
     text_chunks = text_splitter.split_text(text)
+    
     return text_chunks
