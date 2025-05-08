@@ -13,8 +13,8 @@ def main():
     st.write("Made for AI First Contest")
 
 
-    # if("conversation" not in st.session_state):
-    #     st.session_state.conversation = None
+    if("conversation" not in st.session_state):
+        st.session_state.conversation = None
 
     user_question = st.text_input("Ask a question about your files:")
     
